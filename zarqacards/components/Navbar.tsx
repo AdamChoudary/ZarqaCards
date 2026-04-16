@@ -52,117 +52,126 @@ export default function Navbar() {
           left: 0,
           right: 0,
           zIndex: 100,
-          backgroundColor: scrolled ? "#1A0803" : "var(--brown-mid)",
-          borderBottom: scrolled ? "1px solid var(--gold-dim)" : "0.5px solid var(--gold-dim)",
-          transition: "background-color 400ms ease, border-bottom 400ms ease",
+          padding: scrolled ? "18px clamp(20px, 4vw, 60px)" : "32px clamp(20px, 4vw, 60px)",
+          backgroundColor: scrolled ? "rgba(26, 8, 3, 0.75)" : "transparent",
+          backdropFilter: scrolled ? "blur(24px) saturate(150%)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(24px) saturate(150%)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(200, 164, 74, 0.15)" : "1px solid transparent",
+          transition: "all 500ms cubic-bezier(0.16, 1, 0.3, 1)",
           display: "flex",
           alignItems: "center",
-          padding: "0 clamp(20px, 4vw, 80px)",
         }}
-        className="h-[60px] md:h-[72px]"
       >
         <div
           style={{
-            maxWidth: "1200px",
+            maxWidth: "1400px",
             margin: "0 auto",
             width: "100%",
-            display: "flex",
+            display: "grid",
+            gridTemplateColumns: "1fr auto 1fr",
             alignItems: "center",
-            justifyContent: "space-between",
-            gap: "24px",
           }}
         >
-          {/* ── Logo ── */}
+          {/* ── Logo (Left) ── */}
+          <div style={{ display: "flex", justifyContent: "flex-start" }}>
           <Link
             href="/"
             style={{
               textDecoration: "none",
               display: "flex",
               alignItems: "center",
-              gap: "12px",
-              flexShrink: 0,
+              gap: "16px",
             }}
           >
-            <Image src="/logo.png" alt="Logo" width={36} height={36} style={{ borderRadius: "50%" }} />
-            <div>
+            <div style={{ borderRadius: "50%", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <Image src="/logo.png" alt="Logo" width={34} height={34} style={{ objectFit: "cover" }} />
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
               <div
                 style={{
                   fontFamily: "var(--font-cormorant)",
-                  fontSize: "20px",
-                  fontWeight: 600,
-                  letterSpacing: "0.35em",
-                  color: "var(--gold-bright)",
+                  fontSize: "22px",
+                  fontWeight: 300,
+                  letterSpacing: "0.2em",
+                  color: "var(--cream-primary)",
                   lineHeight: 1,
+                  textTransform: "uppercase"
                 }}
               >
-                ZARQA
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-jost)",
-                  fontSize: "9px",
-                  fontWeight: 400,
-                  letterSpacing: "0.25em",
-                  color: "var(--gold-dim)",
-                  lineHeight: 1,
-                  marginTop: "4px",
-                }}
-              >
-                CARDS · زرقا
+                Zarqa
               </div>
             </div>
           </Link>
+          </div>
 
-          {/* ── Desktop Nav Links ── */}
+          {/* ── Desktop Nav Links (Center) ── */}
           <div
-            style={{ display: "flex", gap: "32px", alignItems: "center" }}
+            style={{ display: "flex", gap: "40px", alignItems: "center", justifyContent: "center" }}
             className="hidden md:flex"
           >
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className={`nav-link${isActive(link.href) ? " active" : ""}`}
+                className="group"
+                style={{
+                  position: "relative",
+                  fontFamily: "var(--font-jost)",
+                  fontSize: "10px",
+                  fontWeight: 400,
+                  letterSpacing: "0.15em",
+                  textTransform: "uppercase",
+                  color: isActive(link.href) ? "var(--gold-primary)" : "var(--cream-text)",
+                  transition: "color 300ms ease",
+                  padding: "8px 0"
+                }}
               >
                 {link.label}
+                {/* Custom animated underline */}
+                <span 
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    width: isActive(link.href) ? "100%" : "0%",
+                    height: "1px",
+                    backgroundColor: "var(--gold-primary)",
+                    transition: "width 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+                  }}
+                  className="group-hover:w-full"
+                />
               </Link>
             ))}
           </div>
 
           {/* ── Right: CTA + Mobile Toggle ── */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "16px",
-              flexShrink: 0,
-            }}
-          >
+          <div style={{ display: "flex", alignItems: "center", gap: "24px", justifyContent: "flex-end" }}>
             <Link
               href="/#contact"
               className="hidden md:inline-block"
               style={{
                 fontFamily: "var(--font-jost)",
                 fontSize: "10px",
-                fontWeight: 500,
-                letterSpacing: "0.3em",
+                fontWeight: 600,
+                letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "var(--gold-primary)",
-                border: "0.5px solid var(--gold-dim)",
+                color: "var(--brown-darkest)",
+                backgroundColor: "var(--gold-primary)",
+                border: "1px solid var(--gold-primary)",
                 padding: "10px 24px",
-                transition: "background-color 300ms ease, border-color 300ms ease",
-                backgroundColor: "transparent",
+                transition: "all 300ms ease",
+                borderRadius: "2px" // very subtle softening for modern touch
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "rgba(200, 164, 74, 0.1)"; // equivalent to --gold-ghost
-                e.currentTarget.style.borderColor = "var(--gold-primary)";
+                e.currentTarget.style.backgroundColor = "transparent";
+                e.currentTarget.style.color = "var(--gold-primary)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "transparent";
-                e.currentTarget.style.borderColor = "var(--gold-dim)";
+                e.currentTarget.style.backgroundColor = "var(--gold-primary)";
+                e.currentTarget.style.color = "var(--brown-darkest)";
               }}
             >
-              Order Now
+              Start Order
             </Link>
 
             <button
@@ -247,7 +256,7 @@ export default function Navbar() {
 
         <div style={{ position: "absolute", bottom: "40px", textAlign: "center" }}>
           <a
-            href="https://wa.me/923001234567"
+            href="https://wa.me/923038705165"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -259,7 +268,7 @@ export default function Navbar() {
               textDecoration: "none",
             }}
           >
-            WHATSAPP: +92 300 123 4567
+            WHATSAPP: +92 303 870 5165
           </a>
         </div>
       </div>

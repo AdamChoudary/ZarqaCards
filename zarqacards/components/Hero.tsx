@@ -206,14 +206,12 @@ export default function HeroSection() {
             justifyContent: "center",
           }}
         >
-          <Link href="/collection" className="btn-primary">
-            VIEW COLLECTION
-          </Link>
-          <a
-            href="https://wa.me/923001234567?text=Hi%20ZarqaCards%2C%20I%20want%20to%20order%20a%20card."
+          <a 
+            className="btn-primary" 
+            style={{ minWidth: "160px" }}
+            href="https://wa.me/923038705165?text=Hi%20ZarqaCards%2C%20I%20want%20to%20order%20a%20card."
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-ghost"
           >
             WHATSAPP ORDER
           </a>

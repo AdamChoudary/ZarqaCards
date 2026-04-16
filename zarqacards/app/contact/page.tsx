@@ -59,7 +59,7 @@ function OrderForm() {
         (form.qty ? `Quantity: ${form.qty}\n` : "") +
         (form.message ? `\nMessage:\n${form.message}` : "")
     );
-    window.open(`https://wa.me/923001234567?text=${text}`, "_blank");
+    window.open(`https://wa.me/923038705165?text=${text}`, "_blank");
     setSubmitted(true);
   };
 
@@ -460,7 +460,7 @@ export default function ContactPage() {
                 DIRECT CONTACT
               </p>
               <a
-                href="https://wa.me/923001234567"
+                href="https://wa.me/923038705165"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -473,7 +473,7 @@ export default function ContactPage() {
                   marginBottom: "16px",
                 }}
               >
-                +92 300 123 4567
+                +92 303 870 5165
               </a>
               <div
                 style={{
@@ -499,7 +499,7 @@ export default function ContactPage() {
               </div>
               <div style={{ marginTop: "20px" }}>
                 <a
-                  href="https://wa.me/923001234567?text=Hi%20ZarqaCards%2C%20I%20want%20to%20order%20a%20card."
+                  href="https://wa.me/923038705165?text=Hi%20ZarqaCards%2C%20I%20want%20to%20order%20a%20card."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-primary"

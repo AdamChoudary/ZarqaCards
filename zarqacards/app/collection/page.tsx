@@ -240,18 +240,19 @@ export default function CollectionPage() {
                   }}
                 />
 
-                {/* Order link */}
-                <a
-                  href={`https://wa.me/923001234567?text=${encodeURIComponent(
-                    `Hi ZarqaCards, I am interested in the "${card.title}" design. Please share more details.`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="card-order-link"
-                >
+                <div>
+                  <a
+                    href={`https://wa.me/923038705165?text=${encodeURIComponent(
+                      `Hi ZarqaCards, I saw your ${card.title} from the Collection page and would like to order one.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="card-order-link"
+                  >
                   ORDER THIS DESIGN →
                 </a>
               </div>
+            </div>
             </div>
           ))}
         </div>

@@ -73,7 +73,7 @@ export default function Footer() {
               Premium wedding invitation design based in Rawalpindi, crafting beautiful cards for every occasion.
             </p>
             <a
-              href="https://wa.me/923001234567"
+              href="https://wa.me/923038705165"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -155,7 +155,7 @@ export default function Footer() {
               CONTACT
             </h4>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px", fontFamily: "var(--font-jost)", fontSize: "11px", fontWeight: 300, color: "var(--cream-muted)" }}>
-              <span>WhatsApp: +92 300 123 4567</span>
+              <span>WhatsApp: +92 303 870 5165</span>
               <span>Email: hello@zarqacards.pk</span>
               <span>City: Rawalpindi, Pakistan</span>
               <span>Hours: Mon–Sat, 9am–9pm</span>
