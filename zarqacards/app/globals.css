@@ -1,26 +1,759 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════════════════════════
+   BRAND COLOR TOKENS — Extracted from ZarqaCards logo
+═══════════════════════════════════════════════════════════════════ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Backgrounds */
+  --brown-darkest: #1E0D04;
+  --brown-deep:    #2A1208;
+  --brown-mid:     #3D1A0A;
+  --brown-warm:    #4E2410;
+  --brown-light:   #6B3520;
+
+  /* Gold palette */
+  --gold-bright:   #EDD26A;
+  --gold-primary:  #C8A44A;
+  --gold-dim:      #8A6520;
+
+  /* Text */
+  --cream-primary: #F2E4C4;
+  --cream-muted:   #C4A070;
+  --cream-faint:   #8A6840;
+
+  /* Aliases used in older code */
+  --cream-text:    #F2E4C4;
+  --gold-border:   0.5px solid #C8A44A;
 }
 
+/* ═══════════════════════════════════════════════════════════════════
+   TAILWIND v4 THEME MAPPING
+═══════════════════════════════════════════════════════════════════ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brown-darkest: var(--brown-darkest);
+  --color-brown-deep:    var(--brown-deep);
+  --color-brown-mid:     var(--brown-mid);
+  --color-brown-warm:    var(--brown-warm);
+  --color-brown-light:   var(--brown-light);
+  --color-gold-bright:   var(--gold-bright);
+  --color-gold-primary:  var(--gold-primary);
+  --color-gold-dim:      var(--gold-dim);
+  --color-cream-primary: var(--cream-primary);
+  --color-cream-muted:   var(--cream-muted);
+  --color-cream-faint:   var(--cream-faint);
+  --font-cormorant:      var(--font-cormorant);
+  --font-jost:           var(--font-jost);
+  --font-nastaliq:       var(--font-nastaliq);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ═══════════════════════════════════════════════════════════════════
+   BASE STYLES
+═══════════════════════════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--brown-deep);
+  color: var(--cream-primary);
+  font-family: var(--font-jost), Arial, sans-serif;
+  font-weight: 300;
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--gold-primary);
+  text-decoration: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ISLAMIC PATTERN BACKGROUND TEXTURE
+═══════════════════════════════════════════════════════════════════ */
+.islamic-bg {
+  background-image: url('/islamic-pattern.svg');
+  background-repeat: repeat;
+  background-size: 60px 60px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TICKER / MARQUEE
+═══════════════════════════════════════════════════════════════════ */
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-track {
+  display: flex;
+  white-space: nowrap;
+  animation: ticker-scroll 25s linear infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SCROLL REVEAL (fade-up on viewport enter)
+═══════════════════════════════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 100ms; }
+.reveal-delay-2 { transition-delay: 200ms; }
+.reveal-delay-3 { transition-delay: 300ms; }
+.reveal-delay-4 { transition-delay: 400ms; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   NAV LINKS
+═══════════════════════════════════════════════════════════════════ */
+.nav-link {
+  font-family: var(--font-jost), sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  text-decoration: none;
+  transition: color 300ms ease;
+  padding-bottom: 2px;
+  border-bottom: 0.5px solid transparent;
+  transition: color 300ms ease, border-color 300ms ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--gold-primary);
+  border-bottom-color: var(--gold-primary);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════════════════════════ */
+.btn-primary {
+  display: inline-block;
+  font-family: var(--font-jost), sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brown-darkest);
+  background-color: var(--gold-primary);
+  padding: 14px 36px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 300ms ease;
+  border: none;
+  border-radius: 0;
+}
+
+.btn-primary:hover {
+  background-color: var(--gold-bright);
+  color: var(--brown-darkest);
+}
+
+.btn-ghost {
+  display: inline-block;
+  font-family: var(--font-jost), sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  background-color: transparent;
+  padding: 14px 36px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 300ms ease, color 300ms ease;
+  border: 0.5px solid var(--gold-primary);
+  border-radius: 0;
+}
+
+.btn-ghost:hover {
+  background-color: rgba(200, 164, 74, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FOOTER LINKS
+═══════════════════════════════════════════════════════════════════ */
+.footer-link {
+  font-family: var(--font-jost), sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--cream-muted);
+  text-decoration: none;
+  transition: color 200ms ease;
+  display: inline-block;
+}
+
+.footer-link:hover { color: var(--gold-primary); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   SERVICE CARDS (homepage)
+   NOTE: border-top uses CSS only — never set borderTop in inline style
+   or the hover state will be blocked by inline specificity.
+═══════════════════════════════════════════════════════════════════ */
+.service-card {
+  background-color: var(--brown-mid);
+  border-top: 1.5px solid transparent;
+  transition: background-color 250ms ease, border-top-color 250ms ease;
+  cursor: pointer;
+}
+
+.service-card:hover {
+  background-color: var(--brown-warm);
+  border-top-color: var(--gold-primary);
+}
+
+.service-card .card-arrow {
+  transition: background-color 250ms ease, color 250ms ease,
+              border-color 250ms ease;
+}
+
+.service-card:hover .card-arrow {
+  background-color: var(--gold-primary);
+  color: var(--brown-deep);
+  border-color: var(--gold-primary);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   GALLERY CELLS
+═══════════════════════════════════════════════════════════════════ */
+.gallery-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: var(--brown-mid);
+}
+
+.gallery-card img,
+.gallery-card .gallery-img-fill {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms ease-out;
+}
+
+.gallery-card:hover .gallery-img-fill {
+  transform: scale(1.04);
+}
+
+.gallery-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(30, 13, 4, 0.92) 0%, rgba(30, 13, 4, 0.6) 60%, transparent 100%);
+  transform: translateY(100%);
+  transition: transform 400ms ease-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px 20px;
+  gap: 4px;
+}
+
+.gallery-card:hover .gallery-overlay {
+  transform: translateY(0);
+}
+
+/* Mobile-only persistent label (hover is inaccessible on touch) */
+.gallery-mobile-label {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 16px;
+  background: linear-gradient(to top, rgba(30, 13, 4, 0.88) 0%, transparent 100%);
+}
+
+@media (max-width: 767px) {
+  .gallery-mobile-label { display: flex; align-items: flex-end; }
+  .gallery-overlay { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PRICING CARDS
+   NOTE: Never set border/borderTop in inline style — it blocks :hover.
+   All border logic lives here. Use .featured for the highlighted plan.
+═══════════════════════════════════════════════════════════════════ */
+.pricing-card {
+  background-color: var(--brown-mid);
+  border: 0.5px solid var(--brown-light);
+  border-top: 0.5px solid var(--brown-light);
+  transition: border-color 300ms ease, background-color 300ms ease;
+}
+
+.pricing-card.featured {
+  background-color: var(--brown-warm);
+  border-color: transparent;
+  border-top: 1px solid var(--gold-primary);
+}
+
+.pricing-card:hover {
+  border-color: var(--gold-primary);
+}
+
+.pricing-card.featured:hover {
+  border-color: var(--gold-primary);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PAGE HERO (inner pages)
+═══════════════════════════════════════════════════════════════════ */
+.page-hero {
+  position: relative;
+  min-height: 320px;
+  display: flex;
+  align-items: flex-end;
+  padding: 72px clamp(20px, 4vw, 40px) clamp(48px, 6vw, 72px);
+  background-color: var(--brown-mid);
+  border-bottom: 0.5px solid var(--gold-primary);
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   COLLECTION CARDS
+═══════════════════════════════════════════════════════════════════ */
+.collection-card {
+  background-color: var(--brown-mid);
+  border: 0.5px solid var(--brown-light);
+  transition: border-color 250ms ease;
+  cursor: pointer;
+}
+
+.collection-card:hover {
+  border-color: var(--gold-primary);
+}
+
+.collection-card .card-image-area {
+  aspect-ratio: 4 / 3;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--brown-warm);
+}
+
+.card-order-link {
+  font-family: var(--font-jost), sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  text-decoration: none;
+  transition: color 200ms ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-order-link:hover { color: var(--gold-bright); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   FILTER TABS
+═══════════════════════════════════════════════════════════════════ */
+.filter-tab {
+  font-family: var(--font-jost), sans-serif;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  padding: 9px 22px;
+  cursor: pointer;
+  border: 0.5px solid var(--gold-dim);
+  background: transparent;
+  color: var(--gold-dim);
+  transition: background-color 200ms ease, color 200ms ease,
+              border-color 200ms ease;
+  border-radius: 0;
+  white-space: nowrap;
+}
+
+.filter-tab:hover {
+  border-color: var(--gold-primary);
+  color: var(--gold-primary);
+}
+
+.filter-tab.active {
+  background-color: var(--gold-primary);
+  color: var(--brown-darkest);
+  border-color: var(--gold-primary);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FORM FIELDS
+═══════════════════════════════════════════════════════════════════ */
+.form-label {
+  display: block;
+  font-family: var(--font-jost), sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 8px;
+}
+
+.form-field {
+  width: 100%;
+  background-color: var(--brown-mid);
+  border: 0.5px solid var(--brown-light);
+  color: var(--cream-primary);
+  font-family: var(--font-jost), sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  padding: 14px 16px;
+  outline: none;
+  transition: border-color 250ms ease;
+  border-radius: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.form-field::placeholder {
+  color: var(--cream-faint);
+  font-size: 12px;
+}
+
+.form-field:focus { border-color: var(--gold-primary); }
+
+.form-field option {
+  background-color: var(--brown-mid);
+  color: var(--cream-primary);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FAQ ACCORDION
+═══════════════════════════════════════════════════════════════════ */
+.faq-item {
+  border-top: 0.5px solid var(--brown-light);
+}
+
+.faq-item:last-child {
+  border-bottom: 0.5px solid var(--brown-light);
+}
+
+.faq-trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  gap: 16px;
+  transition: color 200ms ease;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   WHATSAPP FLOAT
+═══════════════════════════════════════════════════════════════════ */
+.whatsapp-float {
+  position: fixed;
+  bottom: 24px;
+  right: 20px;
+  z-index: 90;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--gold-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 250ms ease, transform 250ms ease;
+  text-decoration: none;
+}
+
+.whatsapp-float:hover {
+  background-color: var(--gold-bright);
+  transform: scale(1.06);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ABOUT PAGE — VALUES CARDS
+═══════════════════════════════════════════════════════════════════ */
+.values-card {
+  padding: 40px 32px;
+  border: 0.5px solid var(--brown-light);
+  background-color: var(--brown-mid);
+  transition: background-color 250ms ease, border-color 250ms ease;
+  margin: -0.25px;
+}
+
+.values-card:hover {
+  background-color: var(--brown-warm);
+  border-color: var(--gold-primary);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SERVICES PAGE — SERVICE DETAIL BLOCKS
+═══════════════════════════════════════════════════════════════════ */
+.service-detail-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-top: 0.5px solid var(--brown-light);
+}
+
+@media (max-width: 767px) {
+  .service-detail-block {
+    grid-template-columns: 1fr;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ═══════════════════════════════════════════════════════════════════
+   FEATURE STRIP (About page)
+═══════════════════════════════════════════════════════════════════ */
+.feature-strip-item {
+  padding: 32px 28px;
+  border-left: 0.5px solid var(--brown-light);
+  text-align: center;
+}
+
+.feature-strip-item:first-child { border-left: none; }
+
+@media (max-width: 767px) {
+  .feature-strip-item {
+    border-left: none;
+    border-top: 0.5px solid var(--brown-light);
+  }
+  .feature-strip-item:first-child { border-top: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   RESPONSIVE — FOOTER GRID
+═══════════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px;
+  }
+  .footer-grid > div {
+    border-right: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border-top: 0.5px solid var(--brown-light);
+    padding-top: 28px;
+  }
+  .footer-grid > div:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HERO SLIDESHOW — KEN BURNS
+═══════════════════════════════════════════════════════════════════ */
+@keyframes kenburns {
+  0%   { transform: scale(1.0); }
+  100% { transform: scale(1.08); }
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1500ms ease-in-out;
+  will-change: opacity, transform;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  animation: kenburns 7000ms linear forwards;
+}
+
+.hero-slide.exiting {
+  opacity: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PROCESS CONNECTOR
+═══════════════════════════════════════════════════════════════════ */
+.process-connector {
+  flex: 1;
+  height: 0.5px;
+  background-color: var(--gold-primary);
+  margin-top: 36px;
+  opacity: 0.4;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HERO CONTENT — PAGE LOAD FADE IN (above-fold, not IntersectionObserver)
+═══════════════════════════════════════════════════════════════════ */
+@keyframes heroAppear {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.hero-appear {
+  opacity: 0;
+  animation: heroAppear 800ms ease-out forwards;
+}
+.hero-appear-d1 { animation-delay: 250ms; }
+.hero-appear-d2 { animation-delay: 550ms; }
+.hero-appear-d3 { animation-delay: 850ms; }
+.hero-appear-d4 { animation-delay: 1100ms; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   GALLERY GRID — ASYMMETRIC CSS GRID (server-component safe)
+═══════════════════════════════════════════════════════════════════ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 280px 220px 260px;
+  gap: 1px;
+  background-color: var(--gold-dim);
+}
+
+@media (max-width: 767px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-auto-rows: 220px;
+  }
+  .gallery-cell {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   STATS BAR — responsive grid
+   4 col on desktop, 2 col on tablet, auto on very small
+═══════════════════════════════════════════════════════════════════ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 580px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PROCESS SECTION — 4-col desktop, 2-col tablet, 1-col mobile
+═══════════════════════════════════════════════════════════════════ */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+/* On tablet (2-col), even items are in right column — strip their border-right */
+@media (max-width: 767px) {
+  .process-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .process-grid > div:nth-child(even) {
+    border-right: none !important;
+  }
+  .process-grid > div {
+    padding-bottom: clamp(24px, 4vw, 40px);
+    padding-top: clamp(24px, 4vw, 40px);
+  }
+  .process-grid > div:nth-child(-n+2) {
+    padding-top: 0;
+  }
+}
+
+/* On mobile (1-col), switch to bottom borders */
+@media (max-width: 480px) {
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+  .process-grid > div {
+    border-right: none !important;
+    border-bottom: 0.5px solid var(--gold-dim);
+    padding: clamp(24px, 4vw, 40px) 0;
+    padding-right: 0 !important;
+  }
+  .process-grid > div:first-child {
+    padding-top: 0;
+  }
+  .process-grid > div:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FORM — responsive 2-col row (collapses on small screens)
+═══════════════════════════════════════════════════════════════════ */
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 560px) {
+  .form-row-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SECTION DIVIDER LINE
+═══════════════════════════════════════════════════════════════════ */
+.gold-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gold-divider::before,
+.gold-divider::after {
+  content: "";
+  flex: 1;
+  height: 0.5px;
+  background-color: var(--gold-dim);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ADD-ONS GRID (Services page)
+═══════════════════════════════════════════════════════════════════ */
+.addon-card {
+  padding: 32px 28px;
+  background-color: var(--brown-mid);
+  border: 0.5px solid var(--brown-light);
+  transition: border-color 250ms ease, background-color 250ms ease;
+}
+
+.addon-card:hover {
+  border-color: var(--gold-primary);
+  background-color: var(--brown-warm);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   REDUCED MOTION
+═══════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .reveal         { opacity: 1; transform: none; transition: none; }
+  .hero-appear    { opacity: 1; animation: none; }
+  .ticker-track   { animation: none; }
+  .hero-slide     { animation: none; }
+  .gallery-card .gallery-img-fill { transition: none; }
+  .gallery-overlay { transition: none; }
 }
