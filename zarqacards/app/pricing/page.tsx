@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Fragment } from "react";
 import PricingGrid from "@/components/PricingGrid";
 
 export const metadata: Metadata = {
   title: "Pricing — The Collection",
   description:
-    "Browse ZarqaCards' full invitation card collection with transparent pricing. Classic from Rs. 2,200, Signature from Rs. 5,500, Luxury from Rs. 16,000 per 100 cards.",
+    "Browse ZarqaCards' full invitation card collection with transparent pricing. Classic from Rs. 2,200, Signature from Rs. 2,800, Luxury from Rs. 13,800 per 100 cards.",
 };
 
 const WHATSAPP = "https://wa.me/923038705165";
@@ -196,6 +196,77 @@ export default function PricingPage() {
       </div>
 
       {/* ══════════════════════════════════════════════════════════════
+          WHAT'S ALWAYS INCLUDED
+      ══════════════════════════════════════════════════════════════ */}
+      <div
+        style={{
+          backgroundColor: "var(--brown-deep)",
+          borderBottom:    "0.5px solid var(--gold-dim)",
+          padding:         "clamp(28px, 4vw, 44px) clamp(20px, 4vw, 80px)",
+        }}
+      >
+        <div
+          style={{
+            maxWidth:       "1200px",
+            margin:         "0 auto",
+            display:        "flex",
+            alignItems:     "center",
+            gap:            "clamp(16px, 3vw, 40px)",
+            flexWrap:       "wrap",
+            justifyContent: "center",
+          }}
+        >
+          <p style={{
+            fontFamily:    "var(--font-jost)",
+            fontSize:      "9px",
+            fontWeight:    500,
+            letterSpacing: "0.4em",
+            textTransform: "uppercase",
+            color:         "var(--gold-dim)",
+            whiteSpace:    "nowrap",
+            flexShrink:    0,
+          }}>
+            EVERY ORDER INCLUDES
+          </p>
+          <div style={{
+            width:           "0.5px",
+            height:          "24px",
+            backgroundColor: "var(--gold-dim)",
+            flexShrink:      0,
+          }} className="hidden md:block" />
+          {[
+            "Custom Wording & Print",
+            "Digital Proof",
+            "1 Standard Inner Card",
+            "WhatsApp Support",
+            "Quality Check Before Dispatch",
+          ].map((item, i, arr) => (
+            <Fragment key={item}>
+              <span style={{
+                fontFamily:    "var(--font-jost)",
+                fontSize:      "11px",
+                fontWeight:    300,
+                letterSpacing: "0.04em",
+                color:         "var(--cream-muted)",
+                whiteSpace:    "nowrap",
+              }}>
+                {item}
+              </span>
+              {i < arr.length - 1 && (
+                <span aria-hidden="true" style={{
+                  color:      "var(--gold-dim)",
+                  fontSize:   "8px",
+                  flexShrink: 0,
+                }}>
+                  ◆
+                </span>
+              )}
+            </Fragment>
+          ))}
+        </div>
+      </div>
+
+      {/* ══════════════════════════════════════════════════════════════
           GRID SECTION
       ══════════════════════════════════════════════════════════════ */}
       <section
@@ -298,6 +369,121 @@ export default function PricingPage() {
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+      {/* ══════════════════════════════════════════════════════════════
+          HOW TO ORDER
+      ══════════════════════════════════════════════════════════════ */}
+      <section
+        style={{
+          backgroundColor: "var(--brown-deep)",
+          padding:         "clamp(64px, 8vw, 96px) clamp(20px, 4vw, 80px)",
+          borderTop:       "0.5px solid var(--gold-dim)",
+        }}
+      >
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div style={{ marginBottom: "clamp(36px, 5vw, 56px)", textAlign: "center" }}>
+            <p style={{
+              fontFamily:    "var(--font-jost)",
+              fontSize:      "9px",
+              fontWeight:    400,
+              letterSpacing: "0.5em",
+              textTransform: "uppercase",
+              color:         "var(--gold-dim)",
+              marginBottom:  "8px",
+            }}>
+              THE PROCESS
+            </p>
+            <div style={{
+              width:           "40px",
+              height:          "0.5px",
+              backgroundColor: "var(--gold-dim)",
+              margin:          "0 auto 20px",
+            }} />
+            <h2 style={{
+              fontFamily: "var(--font-cormorant)",
+              fontSize:   "clamp(28px, 4vw, 40px)",
+              fontWeight: 300,
+              color:      "var(--cream-primary)",
+              margin:     0,
+            }}>
+              How to Order
+            </h2>
+          </div>
+
+          <div className="order-steps">
+            {[
+              { num: "01", title: "Browse & Choose",    desc: "Select your card from the collection above. Note the card number." },
+              { num: "02", title: "WhatsApp Us",         desc: "Send us the card number on WhatsApp. We'll confirm availability and discuss your wording." },
+              { num: "03", title: "Digital Proof",       desc: "We prepare a digital mockup with your custom text. You approve before anything is printed." },
+              { num: "04", title: "Advance Payment",     desc: "50% advance to start production. Balance on dispatch. EasyPaisa, JazzCash, bank transfer accepted." },
+              { num: "05", title: "Delivery",            desc: "Ready in 3–5 days. Nationwide courier or hand delivery in Rawalpindi/Islamabad." },
+            ].map((step) => (
+              <div key={step.num} style={{ position: "relative" }}>
+                <div style={{
+                  fontFamily:    "var(--font-cormorant)",
+                  fontStyle:     "italic",
+                  fontSize:      "clamp(40px, 5vw, 56px)",
+                  fontWeight:    300,
+                  color:         "var(--gold-dim)",
+                  opacity:       0.35,
+                  lineHeight:    1,
+                  marginBottom:  "12px",
+                  userSelect:    "none",
+                }}>
+                  {step.num}
+                </div>
+                <div style={{
+                  width:           "24px",
+                  height:          "0.5px",
+                  backgroundColor: "var(--gold-dim)",
+                  marginBottom:    "14px",
+                }} />
+                <h3 style={{
+                  fontFamily:   "var(--font-cormorant)",
+                  fontSize:     "clamp(18px, 2vw, 22px)",
+                  fontWeight:   400,
+                  color:        "var(--cream-primary)",
+                  marginBottom: "10px",
+                }}>
+                  {step.title}
+                </h3>
+                <p style={{
+                  fontFamily: "var(--font-jost)",
+                  fontSize:   "12px",
+                  fontWeight: 300,
+                  color:      "var(--cream-muted)",
+                  lineHeight: 1.8,
+                }}>
+                  {step.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA below steps */}
+          <div style={{ textAlign: "center", marginTop: "clamp(40px, 5vw, 60px)" }}>
+            <a
+              href={`${WHATSAPP}?text=${encodeURIComponent("Assalam o Alaikum, I'd like to place an order. Can you guide me?")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontFamily:     "var(--font-jost)",
+                fontSize:       "10px",
+                fontWeight:     500,
+                letterSpacing:  "0.22em",
+                textTransform:  "uppercase",
+                color:          "var(--brown-darkest)",
+                backgroundColor:"var(--gold-primary)",
+                border:         "0.5px solid var(--gold-primary)",
+                padding:        "14px 36px",
+                textDecoration: "none",
+                display:        "inline-block",
+              }}
+            >
+              START YOUR ORDER ON WHATSAPP
+            </a>
           </div>
         </div>
       </section>

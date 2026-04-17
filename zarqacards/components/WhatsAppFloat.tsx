@@ -5,7 +5,7 @@ export default function WhatsAppFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
-      className="whatsapp-float md:hidden"
+      className="whatsapp-float"
     >
       {/* WhatsApp SVG icon */}
       <svg

@@ -249,7 +249,7 @@ export default function Footer() {
                 { label: "Collection", href: "/collection" },
                 { label: "About",      href: "/about"      },
                 { label: "Services",   href: "/services"   },
-                { label: "Pricing",    href: "/#pricing"   },
+                { label: "Pricing",    href: "/pricing"    },
                 { label: "Contact",    href: "/contact"    },
               ].map(({ label, href }) => (
                 <Link key={label} href={href} className="footer-link">
@@ -289,7 +289,7 @@ export default function Footer() {
               <span>Rawalpindi, Pakistan</span>
               <span>Mon – Sat, 9am – 9pm</span>
               <a
-                href={`mailto:hello@zarqacards.pk`}
+                href={`mailto:zarqacards@gmail.com`}
                 style={{
                   color:          "var(--cream-muted)",
                   textDecoration: "none",
@@ -298,7 +298,7 @@ export default function Footer() {
                 onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold-primary)")}
                 onMouseLeave={(e) => (e.currentTarget.style.color = "var(--cream-muted)")}
               >
-                hello@zarqacards.pk
+                zarqacards@gmail.com
               </a>
               <a
                 href={WHATSAPP}

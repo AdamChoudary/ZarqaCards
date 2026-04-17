@@ -137,30 +137,6 @@ a {
   border-bottom-color: var(--gold-primary);
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   NAVBAR HAMBURGER — flex on mobile, hidden on desktop via md:hidden
-   (Tailwind md:hidden sets display:none; this sets display:flex on mobile
-    without using an inline style that would override md:hidden)
-═══════════════════════════════════════════════════════════════════ */
-@media (max-width: 767px) {
-  button.md\:hidden {
-    display: flex;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   NAVBAR RESPONSIVE GRID
-═══════════════════════════════════════════════════════════════════ */
-.nav-grid {
-  display: flex;
-  justify-content: space-between;
-}
-@media (min-width: 768px) {
-  .nav-grid {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-  }
-}
 
 /* ═══════════════════════════════════════════════════════════════════
    BUTTONS
@@ -804,6 +780,17 @@ a {
     grid-template-columns: 1fr !important;
     gap: 0 !important;
   }
+}
+
+/* Homepage pricing tier grid */
+.pricing-tier-grid {
+  grid-template-columns: repeat(3, 1fr) !important;
+}
+@media (max-width: 1023px) {
+  .pricing-tier-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 560px) {
+  .pricing-tier-grid { grid-template-columns: 1fr !important; }
 }
 
 /* Filter bar — horizontal scroll on mobile, centered wrap on desktop */
