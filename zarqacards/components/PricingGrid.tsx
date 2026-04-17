@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import Link from "next/link";
 
 const WHATSAPP = "https://wa.me/923038705165";
@@ -456,8 +456,8 @@ export default function PricingGrid() {
           }}
         >
           {visibleMain.map((card, idx) => (
-            <>
-              <PricingCard key={card.id} card={card} />
+            <Fragment key={card.id}>
+              <PricingCard card={card} />
               {/* Spotlight every 6 cards */}
               {(idx + 1) % 6 === 0 && idx + 1 < visibleMain.length && (
                 <SpotlightCard
@@ -474,7 +474,7 @@ export default function PricingGrid() {
                   }
                 />
               )}
-            </>
+            </Fragment>
           ))}
         </div>
       )}
