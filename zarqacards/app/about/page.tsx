@@ -203,7 +203,7 @@ export default function AboutPage() {
             }}
           >
             <Image
-              src="https://images.unsplash.com/photo-1605330386762-b7e512411e73?w=800&q=80"
+              src="https://images.unsplash.com/photo-1607190074257-dd4b7af0309f?auto=format&fit=crop&w=800&q=80"
               alt="The craft of invitation design"
               fill
               sizes="(max-width: 767px) 100vw, 50vw"

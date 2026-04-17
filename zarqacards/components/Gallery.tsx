@@ -13,53 +13,53 @@ import Link from "next/link";
 
 const CELLS = [
   {
-    name: "Wedding Collection",
-    urdu: "شادی کارڈز",
+    name: "Imperial Suite",
+    urdu: "شاہی سلسلہ",
     col: "1 / 3",
     row: "1",
-    src: "https://images.unsplash.com/photo-1594954964654-20cebf5acb7e?w=1200&q=80",
+    src: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80",
   },
   {
-    name: "Mehndi Series",
-    urdu: "مہندی",
+    name: "Royal Invitation",
+    urdu: "شاہی دعوت",
     col: "3",
     row: "1",
-    src: "https://images.unsplash.com/photo-1621612046461-1eec5b93cb14?w=800&q=80",
+    src: "https://images.unsplash.com/photo-1607190074257-dd4b7af0309f?auto=format&fit=crop&w=800&q=80",
   },
   {
-    name: "Diwane Cover",
-    urdu: "دیوان",
+    name: "Single Card Detail",
+    urdu: "انفرادی کارڈ",
     col: "1",
     row: "2",
-    src: "https://images.unsplash.com/photo-1544322473-b3c9769cb6fa?w=800&q=80",
+    src: "https://images.unsplash.com/photo-1542332213-31f87348057f?auto=format&fit=crop&w=800&q=80",
   },
   {
-    name: "Walima Edition",
-    urdu: "ولیمہ",
+    name: "Handcrafted Set",
+    urdu: "ہینڈ کرافٹڈ سیٹ",
     col: "2",
     row: "2",
-    src: "https://images.unsplash.com/photo-1603513364988-cb942c74fe9d?w=800&q=80",
+    src: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=800&q=80",
   },
   {
-    name: "",
-    urdu: "",
+    name: "Golden Script",
+    urdu: "سنہری تحریر",
     col: "3",
     row: "2",
-    src: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
+    src: "https://images.unsplash.com/photo-1515516089376-88db1e26e9c0?auto=format&fit=crop&w=800&q=80",
   },
   {
-    name: "Aqeeqa Designs",
-    urdu: "عقیقہ",
+    name: "Deckled Edge Suite",
+    urdu: "خاص کنارہ",
     col: "1",
     row: "3",
-    src: "https://images.unsplash.com/photo-1605330386762-b7e512411e73?w=800&q=80",
+    src: "https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?auto=format&fit=crop&w=800&q=80",
   },
   {
-    name: "Custom Work",
-    urdu: "کسٹم",
+    name: "Ceremonial Ensemble",
+    urdu: "تقریبی مجموعہ",
     col: "2 / 4",
     row: "3",
-    src: "https://images.unsplash.com/photo-1610385966348-1db1162446ee?w=1200&q=80",
+    src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=80",
   },
 ];
 
@@ -217,14 +217,13 @@ export default function GallerySection() {
                         letterSpacing: "0.35em",
                         textTransform: "uppercase",
                         color: "var(--cream-primary)",
-                        marginTop: "12px",
+                        marginTop: "16px",
                         borderBottom: "0.5px solid var(--cream-primary)",
                         paddingBottom: "2px",
-                        alignSelf: "flex-start",
                         textDecoration: "none",
                       }}
                     >
-                      VIEW →
+                      VIEW DESIGN →
                     </Link>
                   </div>
 
