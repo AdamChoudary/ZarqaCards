@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 const HERO_IMAGES = [
-  "https://images.unsplash.com/photo-1594954964654-20cebf5acb7e?w=1920&q=80",
-  "https://images.unsplash.com/photo-1605330386762-b7e512411e73?w=1920&q=80",
-  "https://images.unsplash.com/photo-1621612046461-1eec5b93cb14?w=1920&q=80",
-  "https://images.unsplash.com/photo-1544322473-b3c9769cb6fa?w=1920&q=80",
-  "https://images.unsplash.com/photo-1603513364988-cb942c74fe9d?w=1920&q=80",
-  "https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=80",
+  "/assets/images/hero_1.png",
+  "/assets/images/hero_2.png",
+  "/assets/images/hero_3.png",
+  "/assets/images/hero_4.png",
+  "/assets/images/hero_5.png",
+  "/assets/images/hero_6.png",
 ];
 
 export default function HeroSection() {

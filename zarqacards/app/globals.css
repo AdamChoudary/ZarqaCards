@@ -562,11 +562,11 @@ a {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   HERO SLIDESHOW — KEN BURNS
+   HERO SLIDESHOW — ORGANIC CONTINUOUS PANNING (Ultra Smooth)
 ═══════════════════════════════════════════════════════════════════ */
-@keyframes kenburns {
+@keyframes organicZoom {
   0%   { transform: scale(1.0); }
-  100% { transform: scale(1.08); }
+  100% { transform: scale(1.12); }
 }
 
 .hero-slide {
@@ -575,13 +575,19 @@ a {
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transition: opacity 1500ms ease-in-out;
+  z-index: 0;
   will-change: opacity, transform;
+  
+  /* The animation runs constantly in the background */
+  animation: organicZoom 24s linear infinite alternate;
+  
+  /* Only opacity transitions when class changes, preventing transform snaps */
+  transition: opacity 1600ms ease-in-out;
 }
 
 .hero-slide.active {
   opacity: 1;
-  animation: kenburns 7000ms linear forwards;
+  z-index: 1;
 }
 
 .hero-slide.exiting {
