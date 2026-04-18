@@ -22,6 +22,7 @@ const QUOTES = [
 
 export default function TestimonialsSection() {
   const [currentIdx, setCurrentIdx] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -32,6 +33,15 @@ export default function TestimonialsSection() {
 
   const nextQuote = () => setCurrentIdx((i) => (i + 1) % QUOTES.length);
   const prevQuote = () => setCurrentIdx((i) => (i - 1 + QUOTES.length) % QUOTES.length);
+
+  const handleTouchStart = (e: React.TouchEvent) => setTouchStart(e.targetTouches[0].clientX);
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStart === null) return;
+    const diff = touchStart - e.changedTouches[0].clientX;
+    if (diff > 50) nextQuote();
+    else if (diff < -50) prevQuote();
+    setTouchStart(null);
+  };
 
   return (
     <section
@@ -59,6 +69,8 @@ export default function TestimonialsSection() {
         {/* Carousel Area */}
         <div
           className="reveal reveal-delay-1"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
           style={{
             position: "relative",
             display: "flex",
@@ -116,7 +128,7 @@ export default function TestimonialsSection() {
                 <div
                   style={{
                     fontFamily: "var(--font-cormorant)",
-                    fontSize: "80px",
+                    fontSize: "clamp(48px, 8vw, 80px)",
                     color: "rgba(200, 164, 74, 0.35)", // --gold-primary at 35%
                     lineHeight: 0.5,
                     marginBottom: "32px",
@@ -128,7 +140,7 @@ export default function TestimonialsSection() {
                 <p
                   style={{
                     fontFamily: "var(--font-cormorant)",
-                    fontSize: "22px",
+                    fontSize: "clamp(16px, 2.5vw, 22px)",
                     fontWeight: 300,
                     fontStyle: "italic",
                     color: "var(--cream-primary)",

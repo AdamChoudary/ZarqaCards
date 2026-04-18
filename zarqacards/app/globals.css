@@ -195,6 +195,8 @@ a {
   text-decoration: none;
   transition: color 200ms ease;
   display: inline-block;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .footer-link:hover { color: var(--gold-primary); }
@@ -861,13 +863,56 @@ a {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
+   WHATSAPP FLOAT — PULSE RING
+═══════════════════════════════════════════════════════════════════ */
+@keyframes wa-pulse {
+  0%   { transform: scale(1);   opacity: 0.55; }
+  100% { transform: scale(1.7); opacity: 0;    }
+}
+
+.wa-pulse-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: var(--gold-primary);
+  animation: wa-pulse 2.5s ease-out infinite;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HERO — DISABLE KEN BURNS ON MOBILE (performance)
+═══════════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  .hero-slide {
+    animation: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FOOTER ACCORDION — Always open on desktop
+═══════════════════════════════════════════════════════════════════ */
+@media (min-width: 1024px) {
+  .footer-accordion-body {
+    max-height: none !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+    margin-top: 20px !important;
+  }
+  .footer-accordion-toggle {
+    pointer-events: none;
+    cursor: default;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
    REDUCED MOTION
 ═══════════════════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
-  .reveal         { opacity: 1; transform: none; transition: none; }
+  .hero-slide        { animation: none !important; }
+  .ticker-track      { animation-play-state: paused; }
+  .wa-pulse-ring     { animation: none; }
+  .reveal            { opacity: 1 !important; transform: none !important; transition: none !important; }
   .hero-appear    { opacity: 1; animation: none; }
-  .ticker-track   { animation: none; }
-  .hero-slide     { animation: none; }
   .gallery-card .gallery-img-fill { transition: none; }
   .gallery-overlay { transition: none; }
 }

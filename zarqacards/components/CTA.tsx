@@ -5,7 +5,7 @@ export default function CTASection() {
     <section
       style={{
         backgroundColor: "var(--brown-warm)",
-        padding: "120px 0",
+        padding: "clamp(64px,8vw,120px) 0",
         position: "relative",
         borderTop: "0.5px solid var(--gold-primary)",
       }}
@@ -66,7 +66,7 @@ export default function CTASection() {
         <h2
           style={{
             fontFamily: "var(--font-cormorant)",
-            fontSize: "clamp(36px, 5vw, 52px)",
+            fontSize: "clamp(28px, 5vw, 52px)",
             fontWeight: 300,
             color: "var(--cream-primary)",
             margin: "0 0 16px 0",
@@ -96,8 +96,8 @@ export default function CTASection() {
         </div>
 
         {/* Action Buttons */}
-        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", justifyContent: "center" }}>
-          <Link href="/contact" className="btn-primary">
+        <div className="flex flex-col md:flex-row gap-3 md:gap-4 items-stretch md:items-center justify-center w-full md:w-auto" style={{ maxWidth: "360px" }}>
+          <Link href="/contact" className="btn-primary" style={{ textAlign: "center" }}>
             ORDER NOW
           </Link>
           <a
@@ -105,6 +105,7 @@ export default function CTASection() {
             target="_blank"
             rel="noopener noreferrer"
             className="btn-ghost"
+            style={{ textAlign: "center" }}
           >
             WHATSAPP US
           </a>

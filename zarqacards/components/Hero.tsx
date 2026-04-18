@@ -201,14 +201,23 @@ export default function HeroSection() {
           className="hero-appear hero-appear-d4"
           style={{
             display: "flex",
-            gap: "16px",
-            flexWrap: "wrap",
-            justifyContent: "center",
+            flexDirection: "column",
+            gap: "12px",
+            alignItems: "stretch",
+            width: "100%",
+            maxWidth: "360px",
           }}
         >
-          <a 
-            className="btn-primary" 
-            style={{ minWidth: "160px" }}
+          <Link
+            href="/collection"
+            className="btn-ghost"
+            style={{ textAlign: "center" }}
+          >
+            VIEW COLLECTION
+          </Link>
+          <a
+            className="btn-primary"
+            style={{ textAlign: "center" }}
             href="https://wa.me/923038705165?text=Hi%20ZarqaCards%2C%20I%20want%20to%20order%20a%20card."
             target="_blank"
             rel="noopener noreferrer"
@@ -221,6 +230,7 @@ export default function HeroSection() {
       {/* ── Scroll Indicator (above dots) ── */}
       <div
         aria-hidden="true"
+        className="hidden lg:flex"
         style={{
           position: "absolute",
           bottom: "68px",

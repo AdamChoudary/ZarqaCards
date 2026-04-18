@@ -16,7 +16,6 @@ const NAV_LINKS = [
 const INSTAGRAM = "https://www.instagram.com/zarqacards.offical/";
 const WHATSAPP  = "https://wa.me/923038705165";
 
-/* ── Inline SVG icons ────────────────────────────────────────────── */
 function InstagramIcon({ size = 16 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
@@ -29,71 +28,35 @@ function InstagramIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-function WhatsAppIcon({ size = 16 }: { size?: number }) {
+function Logo({ imgSize = 40, nameSize = "20px", tagSize = "7.5px" }: {
+  imgSize?: number; nameSize?: string; tagSize?: string;
+}) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-  );
-}
-
-/* ── Logo wordmark ───────────────────────────────────────────────── */
-function Logo({ size = "md" }: { size?: "sm" | "md" }) {
-  const imgSize  = size === "sm" ? 36 : 42;
-  const nameSize = size === "sm" ? "18px" : "22px";
-  const tagSize  = size === "sm" ? "7px" : "8px";
-
-  return (
-    <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "12px" }}>
+    <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "10px" }}>
       <div style={{
-        width:           `${imgSize}px`,
-        height:          `${imgSize}px`,
-        borderRadius:    "50%",
-        overflow:        "hidden",
-        flexShrink:      0,
-        border:          "0.5px solid rgba(200,164,74,0.45)",
+        width: `${imgSize}px`, height: `${imgSize}px`,
+        borderRadius: "50%", overflow: "hidden", flexShrink: 0,
+        border: "0.5px solid rgba(200,164,74,0.45)",
         backgroundColor: "var(--brown-deep)",
-        boxShadow:       "0 0 0 3px rgba(200,164,74,0.06)",
       }}>
-        <Image
-          src="/logo.png"
-          alt="ZarqaCards logo"
-          width={imgSize}
-          height={imgSize}
-          priority
-          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-        />
+        <Image src="/logo.png" alt="ZarqaCards" width={imgSize} height={imgSize} priority
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
       </div>
       <div>
         <div style={{
-          fontFamily:    "var(--font-cormorant)",
-          fontSize:      nameSize,
-          fontWeight:    600,
-          letterSpacing: "0.35em",
-          color:         "var(--gold-bright)",
-          lineHeight:    1,
-          textTransform: "uppercase",
-        }}>
-          ZARQA
-        </div>
+          fontFamily: "var(--font-cormorant)", fontSize: nameSize, fontWeight: 600,
+          letterSpacing: "0.35em", color: "var(--gold-bright)", lineHeight: 1, textTransform: "uppercase",
+        }}>ZARQA</div>
         <div style={{
-          fontFamily:    "var(--font-jost)",
-          fontSize:      tagSize,
-          fontWeight:    400,
-          letterSpacing: "0.28em",
-          color:         "var(--gold-dim)",
-          lineHeight:    1,
-          marginTop:     "5px",
-          textTransform: "uppercase",
-        }}>
-          CARDS &middot; زرقا
-        </div>
+          fontFamily: "var(--font-jost)", fontSize: tagSize, fontWeight: 400,
+          letterSpacing: "0.28em", color: "var(--gold-dim)", lineHeight: 1,
+          marginTop: "4px", textTransform: "uppercase",
+        }}>CARDS · زرقا</div>
       </div>
     </Link>
   );
 }
 
-/* ── Component ───────────────────────────────────────────────────── */
 export default function Navbar() {
   const [scrolled,  setScrolled]  = useState(false);
   const [menuOpen,  setMenuOpen]  = useState(false);
@@ -121,49 +84,45 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ══════════════════════════════════════════════
-          DESKTOP / TABLET NAV
-      ══════════════════════════════════════════════ */}
+      {/* ══════════════════════════════════════
+          MAIN NAV BAR
+      ══════════════════════════════════════ */}
       <nav
         aria-label="Main navigation"
         style={{
           position:        "fixed",
-          top:             0,
-          left:            0,
-          right:           0,
+          top: 0, left: 0, right: 0,
           zIndex:          100,
-          height:          scrolled ? "68px" : "80px",
-          padding:         "0 clamp(16px, 4vw, 64px)",
           backgroundColor: scrolled
-            ? "rgba(18, 5, 1, 0.94)"
-            : "transparent",
-          backdropFilter:  scrolled ? "blur(24px) saturate(180%)" : "none",
-          WebkitBackdropFilter: scrolled ? "blur(24px) saturate(180%)" : "none",
+            ? "rgba(18,5,1,0.95)"
+            : "rgba(18,5,1,0.95)",
+          backdropFilter:  "blur(20px) saturate(160%)",
+          WebkitBackdropFilter: "blur(20px) saturate(160%)",
           borderBottom:    scrolled
             ? "0.5px solid rgba(200,164,74,0.18)"
-            : "none",
-          transition:
-            "height 400ms ease, background-color 450ms ease, " +
-            "backdrop-filter 450ms ease, border-color 450ms ease",
-          display:         "flex",
-          alignItems:      "center",
+            : "0.5px solid rgba(200,164,74,0.08)",
+          transition:      "border-color 400ms ease",
         }}
       >
+        {/* Height: 60px mobile, 72px desktop */}
         <div style={{
-          maxWidth:            "1400px",
-          margin:              "0 auto",
-          width:         "100%",
-          display:       "flex",
-          alignItems:    "center",
-          justifyContent:"space-between",
-          position:      "relative",
-        }}>
-          {/* ── Left: Logo ──────────────────────────── */}
+          maxWidth: "1400px",
+          margin:   "0 auto",
+          padding:  "0 clamp(16px, 4vw, 64px)",
+          height:   "60px",
+          display:  "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          position: "relative",
+        }}
+          className="lg:!h-[72px]"
+        >
+          {/* ── Logo ──────────────────────── */}
           <Logo />
 
-          {/* ── Center: Nav links (desktop only, absolutely centered) ── */}
+          {/* ── Center: Nav links (lg+ only, absolutely positioned) ── */}
           <div
-            className="hidden md:flex"
+            className="hidden lg:flex"
             style={{
               position:  "absolute",
               left:      "50%",
@@ -175,58 +134,35 @@ export default function Navbar() {
             {NAV_LINKS.map((link) => {
               const active = isActive(link.href);
               return (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="group"
+                <Link key={link.label} href={link.href} className="group"
                   style={{
-                    position:       "relative",
-                    fontFamily:     "var(--font-jost)",
-                    fontSize:       "11px",
-                    fontWeight:     active ? 500 : 400,
-                    letterSpacing:  "0.18em",
-                    textTransform:  "uppercase",
-                    color:          active ? "var(--gold-primary)" : "var(--cream-muted)",
-                    textDecoration: "none",
-                    padding:        "6px 0",
-                    transition:     "color 280ms ease",
+                    position: "relative",
+                    fontFamily: "var(--font-jost)", fontSize: "11px",
+                    fontWeight: active ? 500 : 400, letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    color: active ? "var(--gold-primary)" : "var(--cream-muted)",
+                    textDecoration: "none", padding: "6px 0",
+                    transition: "color 280ms ease",
                   }}
                 >
                   {link.label}
                   <span style={{
-                    position:        "absolute",
-                    bottom:          0,
-                    left:            0,
-                    width:           active ? "100%" : "0%",
-                    height:          "0.5px",
+                    position: "absolute", bottom: 0, left: 0,
+                    width: active ? "100%" : "0%", height: "0.5px",
                     backgroundColor: "var(--gold-primary)",
-                    transition:      "width 380ms cubic-bezier(0.16, 1, 0.3, 1)",
+                    transition: "width 380ms cubic-bezier(0.16,1,0.3,1)",
                   }} className="group-hover:!w-full" />
                 </Link>
               );
             })}
           </div>
 
-          {/* ── Right: Icons + CTA + Hamburger ─────── */}
-          <div style={{
-            display:        "flex",
-            alignItems:     "center",
-            gap:            "20px",
-            justifyContent: "flex-end",
-          }}>
+          {/* ── Right: Desktop actions + Mobile MENU ── */}
+          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
             {/* Instagram (desktop) */}
-            <a
-              href={INSTAGRAM}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Follow ZarqaCards on Instagram"
-              className="hidden md:flex"
-              style={{
-                alignItems: "center",
-                color:      "var(--gold-dim)",
-                transition: "color 250ms ease",
-                padding:    "4px",
-              }}
+            <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer"
+              aria-label="Instagram" className="hidden lg:flex"
+              style={{ alignItems:"center", color:"var(--gold-dim)", transition:"color 250ms ease", padding:"4px" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold-primary)")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "var(--gold-dim)")}
             >
@@ -234,305 +170,201 @@ export default function Navbar() {
             </a>
 
             {/* Order CTA (desktop) */}
-            <Link
-              href="/contact"
-              className="hidden md:inline-block"
+            <Link href="/contact" className="hidden lg:inline-block"
               style={{
-                fontFamily:      "var(--font-jost)",
-                fontSize:        "10px",
-                fontWeight:      500,
-                letterSpacing:   "0.22em",
-                textTransform:   "uppercase",
-                color:           "var(--brown-darkest)",
-                backgroundColor: "var(--gold-primary)",
-                border:          "0.5px solid var(--gold-primary)",
-                padding:         "10px 24px",
-                textDecoration:  "none",
-                transition:      "background-color 280ms ease, color 280ms ease",
-                whiteSpace:      "nowrap",
+                fontFamily:"var(--font-jost)", fontSize:"10px", fontWeight:500,
+                letterSpacing:"0.22em", textTransform:"uppercase",
+                color:"var(--brown-darkest)", backgroundColor:"var(--gold-primary)",
+                border:"0.5px solid var(--gold-primary)", padding:"10px 24px",
+                textDecoration:"none", transition:"background-color 280ms ease, color 280ms ease",
+                whiteSpace:"nowrap",
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "transparent";
-                e.currentTarget.style.color = "var(--gold-primary)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "var(--gold-primary)";
-                e.currentTarget.style.color = "var(--brown-darkest)";
-              }}
+              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor="transparent"; e.currentTarget.style.color="var(--gold-primary)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor="var(--gold-primary)"; e.currentTarget.style.color="var(--brown-darkest)"; }}
             >
               Order Now
             </Link>
 
-            {/* Hamburger (mobile) — 44×44 touch target */}
+            {/* MENU button (mobile only) */}
             <button
               onClick={() => setMenuOpen(true)}
               aria-label="Open navigation menu"
               aria-expanded={menuOpen}
-              aria-controls="mobile-nav"
-              className="flex md:hidden"
+              className="flex lg:hidden"
               style={{
-                width:          "44px",
-                height:         "44px",
-                alignItems:     "center",
-                justifyContent: "center",
-                color:          "var(--gold-primary)",
-                background:     "none",
-                border:         "none",
-                cursor:         "pointer",
-                flexShrink:     0,
-                padding:        0,
+                minWidth:  "44px",
+                minHeight: "44px",
+                display:   "flex",
+                alignItems:"center",
+                justifyContent:"center",
+                background:"none",
+                border:    "none",
+                cursor:    "pointer",
+                padding:   "0 4px",
+                fontFamily:"var(--font-jost)",
+                fontSize:  "10px",
+                fontWeight:500,
+                letterSpacing:"0.3em",
+                textTransform:"uppercase",
+                color:     "var(--gold-primary)",
+                flexShrink:0,
               }}
             >
-              <svg width="22" height="16" viewBox="0 0 22 16" fill="none" aria-hidden="true">
-                <line x1="0" y1="1"  x2="22" y2="1"  stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <line x1="0" y1="8"  x2="22" y2="8"  stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <line x1="0" y1="15" x2="22" y2="15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
+              MENU
             </button>
           </div>
         </div>
       </nav>
 
-      {/* ══════════════════════════════════════════════
-          MOBILE OVERLAY
-      ══════════════════════════════════════════════ */}
-
-      {/* Backdrop */}
+      {/* ══════════════════════════════════════
+          MOBILE FULL-SCREEN OVERLAY
+      ══════════════════════════════════════ */}
       <div
-        aria-hidden="true"
-        onClick={() => setMenuOpen(false)}
-        style={{
-          position:   "fixed",
-          inset:      0,
-          zIndex:     998,
-          backgroundColor: "rgba(10, 3, 0, 0.60)",
-          opacity:    menuOpen ? 1 : 0,
-          visibility: menuOpen ? "visible" : "hidden",
-          transition: "opacity 380ms ease, visibility 380ms ease",
-          backdropFilter: "blur(4px)",
-          WebkitBackdropFilter: "blur(4px)",
-        }}
-      />
-
-      {/* Drawer panel */}
-      <div
-        id="mobile-nav"
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
         style={{
-          position:        "fixed",
-          top:             0,
-          right:           0,
-          bottom:          0,
-          zIndex:          999,
-          width:           "min(360px, 100vw)",
-          display:         "flex",
-          flexDirection:   "column",
-          backgroundColor: "var(--brown-darkest)",
-          borderLeft:      "0.5px solid rgba(200,164,74,0.12)",
-          transform:       menuOpen ? "translateX(0)" : "translateX(100%)",
-          visibility:      menuOpen ? "visible" : "hidden",
-          transition:      "transform 420ms cubic-bezier(0.16, 1, 0.3, 1), visibility 420ms",
+          position:   "fixed",
+          inset:      0,
+          zIndex:     9999,
+          backgroundColor: "#1E0D04",
+          display:    "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "space-between",
+          transform:  menuOpen ? "translateX(0)" : "translateX(100%)",
+          visibility: menuOpen ? "visible" : "hidden",
+          transition: "transform 400ms cubic-bezier(0.16,1,0.3,1), visibility 400ms",
+          padding:    "0 24px",
+          overflowY:  "auto",
         }}
       >
-        {/* ── Panel header ────────────────────────── */}
-        <div style={{
-          display:        "flex",
-          alignItems:     "center",
-          justifyContent: "space-between",
-          padding:        "0 24px",
-          height:         "72px",
-          borderBottom:   "0.5px solid rgba(200,164,74,0.12)",
-          flexShrink:     0,
-        }}>
-          <Logo size="sm" />
+        {/* Subtle islamic texture */}
+        <div className="islamic-bg" aria-hidden="true"
+          style={{ position:"absolute", inset:0, opacity:0.03, pointerEvents:"none" }} />
 
-          <button
-            onClick={() => setMenuOpen(false)}
-            aria-label="Close navigation menu"
+        {/* Top: Logo */}
+        <div style={{
+          width:"100%", paddingTop:"24px", paddingBottom:"8px",
+          display:"flex", alignItems:"center", justifyContent:"space-between",
+          borderBottom:"0.5px solid rgba(200,164,74,0.1)",
+          flexShrink:0, position:"relative",
+        }}>
+          <Logo imgSize={36} nameSize="18px" tagSize="7px" />
+          {/* Close in top right for quick access */}
+          <button onClick={() => setMenuOpen(false)} aria-label="Close menu"
             style={{
-              width:          "44px",
-              height:         "44px",
-              display:        "flex",
-              alignItems:     "center",
-              justifyContent: "center",
-              color:          "var(--gold-dim)",
-              background:     "none",
-              border:         "none",
-              cursor:         "pointer",
-              transition:     "color 200ms ease",
-              flexShrink:     0,
+              minWidth:"44px", minHeight:"44px",
+              display:"flex", alignItems:"center", justifyContent:"center",
+              background:"none", border:"none", cursor:"pointer",
+              fontFamily:"var(--font-jost)", fontSize:"10px", fontWeight:400,
+              letterSpacing:"0.25em", textTransform:"uppercase",
+              color:"var(--gold-dim)", gap:"6px",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold-primary)")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--gold-dim)")}
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
-              <line x1="18" y1="6"  x2="6"  y2="18" />
-              <line x1="6"  y1="6"  x2="18" y2="18" />
-            </svg>
+            ✕
           </button>
         </div>
 
-        {/* ── Nav links ───────────────────────────── */}
+        {/* Center: Nav links */}
         <nav style={{
-          flex:          1,
-          display:       "flex",
-          flexDirection: "column",
-          padding:       "12px 0",
-          overflowY:     "auto",
+          flex:1, width:"100%",
+          display:"flex", flexDirection:"column", justifyContent:"center",
+          gap:"0", paddingTop:"8px", paddingBottom:"8px",
         }}>
           {NAV_LINKS.map((link, i) => {
             const active = isActive(link.href);
             return (
-              <Link
-                key={link.label}
-                href={link.href}
+              <Link key={link.label} href={link.href}
                 style={{
-                  display:        "flex",
-                  alignItems:     "center",
-                  gap:            "20px",
-                  padding:        "18px 28px",
-                  textDecoration: "none",
-                  borderBottom:   "0.5px solid rgba(200,164,74,0.07)",
-                  backgroundColor: active ? "rgba(200,164,74,0.06)" : "transparent",
-                  transition:     "background-color 200ms ease",
-                  // Stagger entrance
-                  opacity:        menuOpen ? 1 : 0,
-                  transform:      menuOpen ? "translateX(0)" : "translateX(24px)",
-                  transitionProperty: "opacity, transform, background-color",
-                  transitionDuration: `350ms, 350ms, 200ms`,
-                  transitionTimingFunction: "cubic-bezier(0.16,1,0.3,1), cubic-bezier(0.16,1,0.3,1), ease",
-                  transitionDelay: `${80 + i * 55}ms, ${80 + i * 55}ms, 0ms`,
+                  display:"flex", alignItems:"center", gap:"20px",
+                  padding:"16px 0",
+                  borderBottom: i < NAV_LINKS.length - 1
+                    ? "0.5px solid rgba(200,164,74,0.1)"
+                    : "none",
+                  textDecoration:"none",
+                  opacity:    menuOpen ? 1 : 0,
+                  transform:  menuOpen ? "translateX(0)" : "translateX(32px)",
+                  transition: `opacity 380ms ease ${80 + i*60}ms, transform 380ms cubic-bezier(0.16,1,0.3,1) ${80 + i*60}ms`,
                 }}
               >
-                {/* Index number */}
                 <span style={{
-                  fontFamily:    "var(--font-cormorant)",
-                  fontStyle:     "italic",
-                  fontSize:      "13px",
-                  fontWeight:    300,
-                  letterSpacing: "0.1em",
-                  color:         active ? "var(--gold-primary)" : "var(--gold-dim)",
-                  minWidth:      "20px",
-                  lineHeight:    1,
+                  fontFamily:"var(--font-jost)", fontSize:"10px",
+                  fontWeight:400, letterSpacing:"0.25em",
+                  color: active ? "var(--gold-primary)" : "var(--gold-dim)",
+                  minWidth:"24px",
                 }}>
-                  {String(i + 1).padStart(2, "0")}
+                  0{i+1}
                 </span>
-
-                {/* Thin vertical separator */}
                 <span style={{
-                  width:           "0.5px",
-                  height:          "16px",
-                  backgroundColor: active ? "var(--gold-primary)" : "rgba(138,101,32,0.35)",
-                  flexShrink:      0,
-                }} />
-
-                {/* Link label */}
-                <span style={{
-                  fontFamily:    "var(--font-cormorant)",
-                  fontSize:      "clamp(22px, 6vw, 28px)",
-                  fontWeight:    active ? 400 : 300,
-                  letterSpacing: "0.03em",
-                  color:         active ? "var(--gold-bright)" : "var(--cream-primary)",
-                  lineHeight:    1.2,
-                  flex:          1,
+                  fontFamily:"var(--font-cormorant)", fontSize:"clamp(28px,7vw,36px)",
+                  fontWeight: active ? 400 : 300, letterSpacing:"0.03em",
+                  color: active ? "var(--gold-bright)" : "var(--cream-primary)",
+                  lineHeight:1.2,
                 }}>
                   {link.label}
                 </span>
-
-                {/* Active indicator arrow */}
                 {active && (
-                  <span style={{
-                    color:      "var(--gold-primary)",
-                    fontSize:   "14px",
-                    lineHeight: 1,
-                  }}>
-                    →
-                  </span>
+                  <span style={{ color:"var(--gold-primary)", fontSize:"14px", marginLeft:"auto" }}>→</span>
                 )}
               </Link>
             );
           })}
         </nav>
 
-        {/* ── Bottom strip ────────────────────────── */}
+        {/* Bottom: CTA + Contact + Close */}
         <div style={{
-          flexShrink:  0,
-          borderTop:   "0.5px solid rgba(200,164,74,0.12)",
-          padding:     "20px 28px 28px",
-          display:     "flex",
-          flexDirection: "column",
-          gap:         "16px",
-          opacity:     menuOpen ? 1 : 0,
-          transform:   menuOpen ? "translateY(0)" : "translateY(12px)",
-          transition:  `opacity 380ms ease ${80 + NAV_LINKS.length * 55 + 40}ms, transform 380ms ease ${80 + NAV_LINKS.length * 55 + 40}ms`,
+          width:"100%", paddingBottom:"32px", paddingTop:"20px",
+          borderTop:"0.5px solid rgba(200,164,74,0.1)",
+          display:"flex", flexDirection:"column", gap:"16px",
+          flexShrink:0, position:"relative",
+          opacity:    menuOpen ? 1 : 0,
+          transform:  menuOpen ? "translateY(0)" : "translateY(16px)",
+          transition: `opacity 360ms ease ${80 + NAV_LINKS.length * 60 + 40}ms, transform 360ms ease ${80 + NAV_LINKS.length * 60 + 40}ms`,
         }}>
           {/* WhatsApp CTA */}
           <a
             href={`${WHATSAPP}?text=${encodeURIComponent("Assalam o Alaikum, I'd like to enquire about an invitation card.")}`}
-            target="_blank"
-            rel="noopener noreferrer"
+            target="_blank" rel="noopener noreferrer"
             style={{
-              display:         "flex",
-              alignItems:      "center",
-              justifyContent:  "center",
-              gap:             "10px",
-              fontFamily:      "var(--font-jost)",
-              fontSize:        "11px",
-              fontWeight:      500,
-              letterSpacing:   "0.18em",
-              textTransform:   "uppercase",
-              color:           "var(--brown-darkest)",
-              backgroundColor: "var(--gold-primary)",
-              padding:         "14px 20px",
-              textDecoration:  "none",
+              display:"flex", alignItems:"center", justifyContent:"center",
+              gap:"10px", fontFamily:"var(--font-jost)", fontSize:"11px",
+              fontWeight:500, letterSpacing:"0.2em", textTransform:"uppercase",
+              color:"var(--brown-darkest)", backgroundColor:"var(--gold-primary)",
+              padding:"15px 20px", textDecoration:"none", textAlign:"center",
             }}
           >
-            <WhatsAppIcon size={16} />
-            Order on WhatsApp
+            ORDER ON WHATSAPP
           </a>
 
-          {/* Social row */}
-          <div style={{
-            display:        "flex",
-            alignItems:     "center",
-            justifyContent: "space-between",
-          }}>
-            <a
-              href={`tel:+923038705165`}
-              style={{
-                fontFamily:     "var(--font-jost)",
-                fontSize:       "11px",
-                fontWeight:     300,
-                letterSpacing:  "0.1em",
-                color:          "var(--cream-muted)",
-                textDecoration: "none",
-              }}
+          {/* Phone + Instagram row */}
+          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:"8px" }}>
+            <a href="tel:+923038705165"
+              style={{ fontFamily:"var(--font-jost)", fontSize:"11px", fontWeight:300,
+                       letterSpacing:"0.1em", color:"var(--cream-muted)", textDecoration:"none" }}
+            >+92 303 870 5165</a>
+            <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer"
+              style={{ display:"flex", alignItems:"center", gap:"6px",
+                       fontFamily:"var(--font-jost)", fontSize:"11px",
+                       color:"var(--gold-dim)", textDecoration:"none" }}
             >
-              +92 303 870 5165
-            </a>
-            <a
-              href={INSTAGRAM}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="ZarqaCards on Instagram"
-              style={{
-                display:    "flex",
-                alignItems: "center",
-                gap:        "6px",
-                fontFamily: "var(--font-jost)",
-                fontSize:   "11px",
-                fontWeight: 300,
-                color:      "var(--gold-dim)",
-                textDecoration: "none",
-              }}
-            >
-              <InstagramIcon size={14} />
-              <span>@zarqacards.offical</span>
+              <InstagramIcon size={13} />
+              @zarqacards.offical
             </a>
           </div>
+
+          {/* CLOSE text button */}
+          <button onClick={() => setMenuOpen(false)} aria-label="Close navigation menu"
+            style={{
+              background:"none", border:"none", cursor:"pointer",
+              fontFamily:"var(--font-jost)", fontSize:"10px",
+              fontWeight:400, letterSpacing:"0.35em", textTransform:"uppercase",
+              color:"var(--gold-dim)", padding:"8px 0",
+              display:"flex", alignItems:"center", justifyContent:"center", gap:"8px",
+            }}
+          >
+            ✕  CLOSE
+          </button>
         </div>
       </div>
     </>
