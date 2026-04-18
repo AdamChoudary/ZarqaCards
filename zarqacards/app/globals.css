@@ -21,6 +21,10 @@
   --cream-muted:   #C4A070;
   --cream-faint:   #8A6840;
 
+  /* Light section background */
+  --parchment:     #F5EDD8;
+  --parchment-mid: #EDE0C4;
+
   /* Aliases used in older code */
   --cream-text:    #F2E4C4;
   --gold-border:   0.5px solid #C8A44A;
@@ -596,16 +600,6 @@ a {
   opacity: 0;
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   PROCESS CONNECTOR
-═══════════════════════════════════════════════════════════════════ */
-.process-connector {
-  flex: 1;
-  height: 0.5px;
-  background-color: var(--gold-primary);
-  margin-top: 36px;
-  opacity: 0.4;
-}
 
 /* ═══════════════════════════════════════════════════════════════════
    HERO CONTENT — PAGE LOAD FADE IN (above-fold, not IntersectionObserver)
@@ -663,48 +657,54 @@ a {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   PROCESS SECTION — 4-col desktop, 2-col tablet, 1-col mobile
+   PROCESS SECTION — redesigned timeline steps
 ═══════════════════════════════════════════════════════════════════ */
-.process-grid {
+.process-steps-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0;
+  gap: 0 clamp(24px, 3vw, 40px);
 }
 
-/* On tablet (2-col), even items are in right column — strip their border-right */
+.process-step-item {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Badge hover fill */
+.process-badge:hover {
+  background-color: var(--gold-primary) !important;
+}
+.process-badge:hover span {
+  color: var(--brown-darkest) !important;
+}
+
+/* 2-col on tablet */
 @media (max-width: 767px) {
-  .process-grid {
+  .process-steps-grid {
     grid-template-columns: repeat(2, 1fr);
+    row-gap: clamp(32px, 5vw, 48px);
   }
-  .process-grid > div:nth-child(even) {
-    border-right: none !important;
-  }
-  .process-grid > div {
-    padding-bottom: clamp(24px, 4vw, 40px);
-    padding-top: clamp(24px, 4vw, 40px);
-  }
-  .process-grid > div:nth-child(-n+2) {
-    padding-top: 0;
+  /* Hide connector on items that would connect into a new row */
+  .process-step-item:nth-child(2n) > div:first-child > div:last-child,
+  .process-step-item:last-child > div:first-child > div:last-child {
+    display: none;
   }
 }
 
-/* On mobile (1-col), switch to bottom borders */
+/* 1-col on mobile */
 @media (max-width: 480px) {
-  .process-grid {
+  .process-steps-grid {
     grid-template-columns: 1fr;
+    row-gap: clamp(28px, 5vw, 40px);
   }
-  .process-grid > div {
-    border-right: none !important;
-    border-bottom: 0.5px solid var(--gold-dim);
-    padding: clamp(24px, 4vw, 40px) 0;
-    padding-right: 0 !important;
+  /* Show left-side vertical feel: hide all connectors */
+  .process-step-item > div:first-child > div:last-child {
+    display: none;
   }
-  .process-grid > div:first-child {
-    padding-top: 0;
-  }
-  .process-grid > div:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
+  /* Add a bottom separator between steps */
+  .process-step-item:not(:last-child) {
+    padding-bottom: clamp(28px, 5vw, 40px);
+    border-bottom: 0.5px solid rgba(138,101,32,0.2);
   }
 }
 

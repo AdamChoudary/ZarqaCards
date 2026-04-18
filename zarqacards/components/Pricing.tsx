@@ -6,14 +6,14 @@ const TIERS = [
   {
     num: "01",
     label: "Classic",
-    from: "2,200",
+    from: "1,900",
     unit: "per 100 cards",
     desc: "Clean, dignified cards — for the family that wants quality without extravagance.",
   },
   {
     num: "02",
     label: "Dori & Ribbon",
-    from: "2,500",
+    from: "2,400",
     unit: "per 100 cards",
     desc: "Pakistan's most loved style. Handtied Dori and ribbon closures included.",
     popular: true,
@@ -21,7 +21,7 @@ const TIERS = [
   {
     num: "03",
     label: "Signature",
-    from: "2,800",
+    from: "4,600",
     unit: "per 100 cards",
     desc: "Heavier stock, richer detail — for families who want to make an impression.",
   },
@@ -35,14 +35,14 @@ const TIERS = [
   {
     num: "05",
     label: "Luxury",
-    from: "13,800",
+    from: "12,500",
     unit: "per 100 cards",
     desc: "Two inners included. Personal consultation. For weddings remembered for decades.",
   },
   {
     num: "06",
     label: "Acrylic",
-    from: "480",
+    from: "360",
     unit: "per piece · min. 50",
     desc: "Modern luxury in clear acrylic. A card every guest will keep long after the occasion.",
   },

@@ -46,9 +46,9 @@ export default function TestimonialsSection() {
   return (
     <section
       style={{
-        backgroundColor: "var(--brown-deep)",
+        backgroundColor: "var(--brown-mid)",
         padding: "clamp(64px, 8vw, 120px) clamp(20px, 4vw, 80px)",
-        borderTop: "0.5px solid var(--gold-primary)",
+        borderTop: "0.5px solid var(--gold-dim)",
       }}
     >
       <div style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center" }}>
@@ -57,7 +57,7 @@ export default function TestimonialsSection() {
           className="reveal"
           style={{
             fontFamily: "var(--font-cormorant)",
-            fontSize: "42px",
+            fontSize: "clamp(28px, 5vw, 42px)",
             fontWeight: 300,
             color: "var(--cream-primary)",
             margin: "0 0 64px 0",

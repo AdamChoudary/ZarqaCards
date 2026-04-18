@@ -117,7 +117,7 @@ export default function GallerySection() {
           <h2
             style={{
               fontFamily: "var(--font-cormorant)",
-              fontSize: "42px",
+              fontSize: "clamp(28px, 5vw, 42px)",
               fontWeight: 300,
               color: "var(--cream-primary)",
               lineHeight: 1,

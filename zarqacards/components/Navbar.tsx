@@ -95,13 +95,13 @@ export default function Navbar() {
           zIndex:          100,
           backgroundColor: scrolled
             ? "rgba(18,5,1,0.95)"
-            : "rgba(18,5,1,0.95)",
-          backdropFilter:  "blur(20px) saturate(160%)",
-          WebkitBackdropFilter: "blur(20px) saturate(160%)",
+            : "transparent",
+          backdropFilter:  scrolled ? "blur(20px) saturate(160%)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(20px) saturate(160%)" : "none",
           borderBottom:    scrolled
             ? "0.5px solid rgba(200,164,74,0.18)"
-            : "0.5px solid rgba(200,164,74,0.08)",
-          transition:      "border-color 400ms ease",
+            : "0.5px solid transparent",
+          transition:      "background-color 400ms ease, border-color 400ms ease, backdrop-filter 400ms ease",
         }}
       >
         {/* Height: 60px mobile, 72px desktop */}
@@ -166,7 +166,7 @@ export default function Navbar() {
               onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold-primary)")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "var(--gold-dim)")}
             >
-              <InstagramIcon size={17} />
+              <InstagramIcon size={20} />
             </a>
 
             {/* Order CTA (desktop) */}
@@ -194,7 +194,6 @@ export default function Navbar() {
               style={{
                 minWidth:  "44px",
                 minHeight: "44px",
-                display:   "flex",
                 alignItems:"center",
                 justifyContent:"center",
                 background:"none",
