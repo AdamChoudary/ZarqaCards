@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, Fragment } from "react";
+import Image from "next/image";
 
 const WHATSAPP = "https://wa.me/923038705165";
 
@@ -278,8 +279,15 @@ const ADDONS = [
 
 /* ── Subcomponents ────────────────────────────────────────────────── */
 function PricingCard({ card }: { card: Card }) {
-  const [hovered, setHovered] = useState(false);
+  const [hovered,   setHovered]   = useState(false);
+  const [active,    setActive]    = useState(0);      // 0 = photo 1, 1 = photo 2
+  const [p1Missing, setP1Missing] = useState(false);  // no photo uploaded yet
+  const [p2Missing, setP2Missing] = useState(false);  // only 1 photo uploaded
   const meta = META[card.tier];
+
+  const photoSrc = active === 1 && !p2Missing
+    ? `/cards/${card.id}-2.jpg`
+    : `/cards/${card.id}-1.jpg`;
 
   return (
     <div
@@ -297,159 +305,149 @@ function PricingCard({ card }: { card: Card }) {
       {/* ── Image zone ──────────────────────────────────────────── */}
       <div style={{ position: "relative", aspectRatio: "3 / 2", overflow: "hidden", backgroundColor: meta.bg }}>
 
-        {/* Islamic pattern watermark */}
-        <div className="islamic-bg" aria-hidden="true"
-          style={{ position: "absolute", inset: 0, opacity: 0.12 }} />
-
-        {/* Gradient overlay */}
-        <div aria-hidden="true" style={{
-          position: "absolute", inset: 0,
-          background: "linear-gradient(135deg, rgba(0,0,0,0.18) 0%, transparent 60%)",
-        }} />
-
-        {/* Scalable inner layer */}
-        <div aria-hidden="true" style={{
-          position: "absolute",
-          inset: 0,
-          transition: "transform 500ms cubic-bezier(0.16, 1, 0.3, 1)",
-          transform: hovered ? "scale(1.04)" : "scale(1)",
-        }}>
-          {/* Inset frame */}
-          <div style={{
-            position: "absolute",
-            inset: "12px",
-            border: "0.5px solid rgba(200,164,74,0.18)",
-          }} />
-          {/* Corner marks */}
-          {[
-            { top: "14px", left: "14px" },
-            { top: "14px", right: "14px" },
-            { bottom: "14px", left: "14px" },
-            { bottom: "14px", right: "14px" },
-          ].map((pos, i) => (
-            <div key={i} aria-hidden="true" style={{
-              position: "absolute",
-              width: "8px",
-              height: "8px",
-              borderColor: "rgba(200,164,74,0.35)",
-              borderStyle: "solid",
-              borderWidth: 0,
-              borderTopWidth: pos.top ? "0.5px" : 0,
-              borderBottomWidth: pos.bottom ? "0.5px" : 0,
-              borderLeftWidth: pos.left ? "0.5px" : 0,
-              borderRightWidth: pos.right ? "0.5px" : 0,
-              ...pos,
+        {!p1Missing ? (
+          /* ── Real card photo ──────────────────────────────────── */
+          <>
+            <Image
+              key={photoSrc}
+              src={photoSrc}
+              alt={`ZarqaCards No. ${card.display ?? card.id}`}
+              fill
+              loading="lazy"
+              sizes="(max-width: 560px) 100vw, (max-width: 1023px) 50vw, 33vw"
+              style={{
+                objectFit: "cover",
+                transition: "transform 500ms cubic-bezier(0.16, 1, 0.3, 1)",
+                transform: hovered ? "scale(1.04)" : "scale(1)",
+              }}
+              onError={() => {
+                if (active === 1) {
+                  setP2Missing(true);
+                  setActive(0);
+                } else {
+                  setP1Missing(true);
+                }
+              }}
+            />
+            {/* bottom gradient for tag legibility */}
+            <div aria-hidden="true" style={{
+              position: "absolute", inset: 0, pointerEvents: "none",
+              background: "linear-gradient(to top, rgba(18,5,1,0.65) 0%, rgba(18,5,1,0.08) 50%, transparent 100%)",
+              zIndex: 1,
             }} />
-          ))}
-          {/* Watermark card number */}
-          <div aria-hidden="true" style={{
-            position: "absolute",
-            inset: 0,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontFamily: "var(--font-cormorant)",
-            fontStyle: "italic",
-            fontSize: "clamp(52px, 9vw, 88px)",
-            fontWeight: 300,
-            color: "var(--gold-dim)",
-            opacity: 0.14,
-            userSelect: "none",
-            letterSpacing: "0.05em",
-          }}>
-            {card.display ?? card.id}
-          </div>
-        </div>
+            {/* Photo dot toggle — hidden once photo 2 confirmed missing */}
+            {!p2Missing && (
+              <div style={{
+                position: "absolute", bottom: "44px", left: "50%",
+                transform: "translateX(-50%)",
+                display: "flex", gap: "6px", zIndex: 4,
+              }}>
+                {[0, 1].map((i) => (
+                  <button key={i}
+                    onClick={(e) => { e.stopPropagation(); setActive(i); }}
+                    aria-label={`Photo ${i + 1}`}
+                    style={{
+                      width: "7px", height: "7px", borderRadius: "50%", padding: 0,
+                      border: "0.5px solid rgba(200,164,74,0.7)",
+                      backgroundColor: active === i ? "var(--gold-primary)" : "rgba(255,255,255,0.28)",
+                      cursor: "pointer", transition: "background-color 200ms ease",
+                    }}
+                  />
+                ))}
+              </div>
+            )}
+          </>
+        ) : (
+          /* ── Decorative placeholder (photo not added yet) ─────── */
+          <>
+            <div className="islamic-bg" aria-hidden="true"
+              style={{ position: "absolute", inset: 0, opacity: 0.12 }} />
+            <div aria-hidden="true" style={{
+              position: "absolute", inset: 0,
+              background: "linear-gradient(135deg, rgba(0,0,0,0.18) 0%, transparent 60%)",
+            }} />
+            <div aria-hidden="true" style={{
+              position: "absolute", inset: 0,
+              transition: "transform 500ms cubic-bezier(0.16, 1, 0.3, 1)",
+              transform: hovered ? "scale(1.04)" : "scale(1)",
+            }}>
+              <div style={{ position: "absolute", inset: "12px", border: "0.5px solid rgba(200,164,74,0.18)" }} />
+              {[
+                { top: "14px", left: "14px" }, { top: "14px", right: "14px" },
+                { bottom: "14px", left: "14px" }, { bottom: "14px", right: "14px" },
+              ].map((pos, i) => (
+                <div key={i} aria-hidden="true" style={{
+                  position: "absolute", width: "8px", height: "8px",
+                  borderColor: "rgba(200,164,74,0.35)", borderStyle: "solid", borderWidth: 0,
+                  borderTopWidth: pos.top ? "0.5px" : 0, borderBottomWidth: pos.bottom ? "0.5px" : 0,
+                  borderLeftWidth: pos.left ? "0.5px" : 0, borderRightWidth: pos.right ? "0.5px" : 0,
+                  ...pos,
+                }} />
+              ))}
+              <div aria-hidden="true" style={{
+                position: "absolute", inset: 0, display: "flex",
+                alignItems: "center", justifyContent: "center",
+                fontFamily: "var(--font-cormorant)", fontStyle: "italic",
+                fontSize: "clamp(52px, 9vw, 88px)", fontWeight: 300,
+                color: "var(--gold-dim)", opacity: 0.14,
+                userSelect: "none", letterSpacing: "0.05em",
+              }}>
+                {card.display ?? card.id}
+              </div>
+            </div>
+          </>
+        )}
 
-        {/* Card number tag — top left */}
+        {/* Card number tag — top left (always visible) */}
         <div style={{
-          position: "absolute",
-          top: "12px",
-          left: "12px",
-          backgroundColor: "rgba(30,13,4,0.80)",
-          backdropFilter: "blur(6px)",
-          padding: "4px 10px",
-          fontFamily: "var(--font-jost)",
-          fontSize: "9px",
-          fontWeight: 500,
-          letterSpacing: "0.2em",
-          color: "var(--gold-primary)",
-          zIndex: 2,
+          position: "absolute", top: "12px", left: "12px",
+          backgroundColor: "rgba(30,13,4,0.80)", backdropFilter: "blur(6px)",
+          padding: "4px 10px", fontFamily: "var(--font-jost)",
+          fontSize: "9px", fontWeight: 500, letterSpacing: "0.2em",
+          color: "var(--gold-primary)", zIndex: 3,
         }}>
           No. {card.display ?? card.id}
         </div>
 
-        {/* Tier badge — top right */}
+        {/* Tier badge — top right (always visible) */}
         <div style={{
-          position: "absolute",
-          top: "12px",
-          right: "12px",
-          backgroundColor: "rgba(30,13,4,0.80)",
-          backdropFilter: "blur(6px)",
-          padding: "4px 10px",
-          fontFamily: "var(--font-jost)",
-          fontSize: "8px",
-          fontWeight: 500,
-          letterSpacing: "0.22em",
-          textTransform: "uppercase",
-          color: "var(--gold-dim)",
-          zIndex: 2,
+          position: "absolute", top: "12px", right: "12px",
+          backgroundColor: "rgba(30,13,4,0.80)", backdropFilter: "blur(6px)",
+          padding: "4px 10px", fontFamily: "var(--font-jost)",
+          fontSize: "8px", fontWeight: 500, letterSpacing: "0.22em",
+          textTransform: "uppercase", color: "var(--gold-dim)", zIndex: 3,
         }}>
           {card.tier === "collectors" ? "COLLECTOR'S" : card.tier.toUpperCase()}
         </div>
 
         {/* Hover overlay — slides up from bottom */}
         <div style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: "40%",
-          backgroundColor: "rgba(30,13,4,0.88)",
-          backdropFilter: "blur(10px)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
+          position: "absolute", bottom: 0, left: 0, right: 0, height: "40%",
+          backgroundColor: "rgba(30,13,4,0.88)", backdropFilter: "blur(10px)",
+          display: "flex", alignItems: "center", justifyContent: "space-between",
           padding: "0 16px",
           transform: hovered ? "translateY(0)" : "translateY(100%)",
           transition: "transform 380ms cubic-bezier(0.16, 1, 0.3, 1)",
-          zIndex: 3,
+          zIndex: 4,
         }}>
           <span style={{
-            fontFamily: "var(--font-cormorant)",
-            fontStyle: "italic",
-            fontSize: "13px",
-            fontWeight: 300,
-            color: "var(--cream-muted)",
+            fontFamily: "var(--font-cormorant)", fontStyle: "italic",
+            fontSize: "13px", fontWeight: 300, color: "var(--cream-muted)",
           }}>
             {card.tier === "acrylic" ? "Per piece · min. 50 pcs" : "Per 100 cards"}
           </span>
           <a
-            href={waLink(card)}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={waLink(card)} target="_blank" rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
             style={{
-              fontFamily: "var(--font-jost)",
-              fontSize: "9px",
-              fontWeight: 500,
-              letterSpacing: "0.25em",
-              textTransform: "uppercase",
-              color: "var(--gold-primary)",
-              border: "0.5px solid var(--gold-primary)",
-              padding: "8px 14px",
-              textDecoration: "none",
-              whiteSpace: "nowrap",
+              fontFamily: "var(--font-jost)", fontSize: "9px", fontWeight: 500,
+              letterSpacing: "0.25em", textTransform: "uppercase",
+              color: "var(--gold-primary)", border: "0.5px solid var(--gold-primary)",
+              padding: "8px 14px", textDecoration: "none", whiteSpace: "nowrap",
               transition: "background-color 200ms ease, color 200ms ease",
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "var(--gold-primary)";
-              e.currentTarget.style.color = "var(--brown-darkest)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "transparent";
-              e.currentTarget.style.color = "var(--gold-primary)";
-            }}
+            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "var(--gold-primary)"; e.currentTarget.style.color = "var(--brown-darkest)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "var(--gold-primary)"; }}
           >
             ENQUIRE →
           </a>
